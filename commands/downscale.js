@@ -11,7 +11,7 @@ module.exports = {
         if(message.attachments.size > 1) return message.reply("You attached more than one image to your message. This command only works with one attachment.");
         if(!message.attachments.first().contentType.startsWith("image")) return message.reply("Please provide an image.")
         var sizes = {
-            smol:30,
+            smol:25,
             piss:50,
             tiny:80,
             small:128,
