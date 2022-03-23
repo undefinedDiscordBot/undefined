@@ -1,0 +1,10 @@
+{
+  "dependencies": {
+    "discord-buttons": "^3.2.1",
+    "discord.js": "^13.0.0",
+    "jsdom": "^16.6.0",
+    "reddit": "^1.2.1",
+    "sharp": "^0.30.3",
+    "snekfetch": "^4.0.4"
+  }
+}
