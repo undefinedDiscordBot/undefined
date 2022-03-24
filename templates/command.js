@@ -2,6 +2,7 @@
 
 const {Message, Client} = require("discord.js")
 
+// JSDoc for intellisense in VS Code and other IDEs
 /**
  * Execute the command.
  * @param {Message} message 
