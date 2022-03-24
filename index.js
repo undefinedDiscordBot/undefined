@@ -23,39 +23,30 @@ client.on("ready", () => {
     client.user.setPresence({ activities: [{ name: 'for '+client.config.prefix+'help', type:'WATCHING' }]})
     console.log(`Logged in as ${client.user.tag}!`);
 })
-// oh lord, this is messy
-// note to mmccall (me) clean this up cause its hard to read
 client.on("messageCreate", (msg) => {
     if(!msg.guild || msg.author.bot) return;
     var thisServer = client.DiscServers.filter(s => msg.guild.id == s.id);
-    var serverPrefix;
-    if(thisServer.length !== 0){
-        if(thisServer[0].prefix) if(thisServer[0].prefix !== client.config.prefix) serverPrefix=thisServer[0].prefix;
-    }
-    if( (msg.content.startsWith(client.config.prefix) && !serverPrefix) || ( msg.content.startsWith(serverPrefix) && !msg.content.startsWith(client.config.prefix))){
-    var command;
-    if(serverPrefix){
-        command = msg.content.slice(serverPrefix.length).split(/ +/)[0]
-    }else{
-        command = msg.content.slice(client.config.prefix.length).split(/ +/)[0]
-    }
-    msg.prefix = serverPrefix || client.config.prefix
-    var filter = c => c.name === command || c.aliases.includes(command);
+    var prefixToUse;
+    if(thisServer.length && thisServer[0].prefix && thisServer[0].prefix !== client.config.prefix) prefixToUse=thisServer[0].prefix; else prefixToUse=client.config.prefix;
+    // if the server has a custom prefix, use it
+    if(msg.content.startsWith(prefixToUse)){ // check if command starts with prefix
+    var command = msg.content.slice(prefixToUse.length).split(/ +/)[0]; // get the command
+    msg.prefix = prefixToUse;
+    var filter = c => c.name === command || c.aliases.includes(command); // filter for command to execute
     var toExec = client.commands.filter(filter);
-    if(toExec.length <= 0) return msg.channel.send(`I couldnt find the command you were looking for, ${msg.author.username}`);
+    if(toExec.length <= 0) return msg.error(`I couldnt find the command you were looking for, ${msg.author.username}`);
+    // if cant find command, tell user
     try{
         toExec[0].execute(msg, client);
     }catch(err){
         console.log("Error: " + err);
         msg.channel.send("I encountered an error while trying to execute your command. Please contact the developer of this bot for help.");
     }
-}else if(msg.mentions.users.find(user => user == client.user) && msg.content == `<@!${client.user.id}>` && !msg.mentions.everyone && msg.mentions.repliedUser !== client.user){
+    }       else if(msg.content == `<@!${client.user.id}>`){
         var thisServer = client.DiscServers.filter(s => msg.guild.id == s.id);
         var serverPrefix;
-        console.log(msg.content)
-        if(thisServer.length !== 0){
-            if(thisServer[0].prefix !== client.config.prefix) serverPrefix=thisServer[0].prefix;
-        }
+        if(thisServer.length !== 0 && thisServer[0].prefix && thisServer[0] !== client.config.prefix) serverPrefix=thisServer[0].prefix;
+        
         serverPrefix ? msg.channel.send(`My prefix in this server is ${serverPrefix}`) : msg.channel.send(`My prefix is ${client.config.prefix}`);
     }
-})
+}) 
