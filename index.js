@@ -27,7 +27,7 @@ client.on("messageCreate", (msg) => {
     if(!msg.guild || msg.author.bot) return;
     var thisServer = client.DiscServers.filter(s => msg.guild.id == s.id);
     var prefixToUse;
-    if(thisServer.length && thisServer[0].prefix && thisServer[0].prefix !== client.config.prefix) prefixToUse=thisServer[0].prefix; else prefixToUse=client.config.prefix;
+    if(thisServer.length > 0 && thisServer[0].prefix && thisServer[0].prefix !== client.config.prefix) prefixToUse=thisServer[0].prefix; else prefixToUse=client.config.prefix;
     // if the server has a custom prefix, use it
     if(msg.content.startsWith(prefixToUse)){ // check if command starts with prefix
     var command = msg.content.slice(prefixToUse.length).split(/ +/)[0]; // get the command
