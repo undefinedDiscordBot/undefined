@@ -5,7 +5,7 @@
 These functions make some things less tedious and help with writing shorter and more readable code.
 
 */
-const {GuildMember, User, Guild} = require("discord.js");
+const {GuildMember, User, Guild, Message} = require("discord.js");
 const discordJS = require("discord.js")
 
 const clientJS = require("../modules/Client.js")
@@ -64,6 +64,21 @@ function addUtil(client){
             client.DiscUsers.push(newData);
             return client.DiscUsers.filter( userObject => userObject.id == this.id )[0];
         }
+        /**
+         * 
+         * @param {String} message 
+         * @returns {Message} The error message sent to the user.
+         * @throws {Error} If the message is not a string.
+         */
+    Message.prototype.error = function(message){
+        // Send an error message to the user.
+        if(typeof message != "string") throw new Error("Message must be a string.");
+        let embed = new discordJS.MessageEmbed();
+        embed.setTitle("Error");
+        embed.setDescription(message);
+        embed.setColor("#ff0000");
+        return this.reply({embeds: [embed], allowedMentions: {repliedUser: false}});
+    }
 }
 
 module.exports = addUtil;
