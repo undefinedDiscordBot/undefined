@@ -13,7 +13,7 @@ function execute(message, client){
      * @param {String} reason - The resason for the error
      */
     function error(reason){
-        var embed = new discord.MessageEmbed().setTitle("Error").setColor("RED").setDescription(reason)
+        message.error(reason);
     }
     if(message.mentions.users.size == 0) return error("You need to mention someone!");
     if(message.mentions.users.size > 1)  return error("You can only send clicks to one person at a time");
