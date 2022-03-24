@@ -1,3 +1,3 @@
 ## Undefined
 
-A (soon to be) full-featured discord bot with tons of features.
+A discord bot with tons of general use features.

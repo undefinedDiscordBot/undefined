@@ -23,6 +23,8 @@ client.on("ready", () => {
     client.user.setPresence({ activities: [{ name: 'for '+client.config.prefix+'help', type:'WATCHING' }]})
     console.log(`Logged in as ${client.user.tag}!`);
 })
+// oh lord, this is messy
+// note to mmccall (me) clean this up cause its hard to read
 client.on("messageCreate", (msg) => {
     if(!msg.guild || msg.author.bot) return;
     var thisServer = client.DiscServers.filter(s => msg.guild.id == s.id);
