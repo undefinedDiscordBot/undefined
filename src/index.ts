@@ -1,8 +1,4 @@
 // es6 imports
-import {
-    Guild,
-    User
-} from "discord.js";
 import * as fs from "fs";
 import * as Types from "./modules/Types"
 import extendedClient from "./modules/Client";
