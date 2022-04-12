@@ -28,7 +28,8 @@ const commandJson:Command = {
     aliases: ["c"],
     execute: execute,
     description: "A simple clicker game, everytime you do {prefix}click your clicks counter will go up 1.",
-    category: "fun"
+    category: "fun",
+    hidden:false
 }
 
 export default commandJson;

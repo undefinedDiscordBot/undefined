@@ -20,6 +20,7 @@ const commandJson: Types.Command = {
     aliases: ["cmd"],
     description: "This is the command template.",
     category: "example",
+    hidden: false,
     execute: execute
 }
 

@@ -10,10 +10,7 @@ var commandsDir = fs.readdirSync("./commands");
 var commandsFilter = (c:string) => c.endsWith(".js");
 var validCommands = commandsDir.filter(commandsFilter);
 
-for(var command of validCommands){
-    client.commands.push(require(`./commands/${command}`));
-}
-console.log(`Loaded ${validCommands.length} commands!`);
+console.log(`Found ${client.commands.length} commands!`);
 
 if(client.config.token) client.login(client.config.token); else console.log("No token provided. Please put a bot token in config.json and restart the bot.")
 
@@ -23,7 +20,6 @@ client.on("ready", () => {
     console.log(`Logged in as ${client.user.tag}!`);
 })
 client.on("messageCreate", (msg) => {
-    if(typeof msg.guild !== typeof Guild) return;
     var thisServer = client.Servers.filter(s => msg.guild !== null && msg.guild.id === s.id);
     var prefixToUse;
     if(thisServer.length > 0 && thisServer[0].prefix && thisServer[0].prefix !== client.config.prefix) prefixToUse=thisServer[0].prefix; else prefixToUse=client.config.prefix;

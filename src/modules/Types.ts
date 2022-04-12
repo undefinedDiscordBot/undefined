@@ -31,4 +31,5 @@ export type Command = {
     description: string,
     category: string,
     execute: (msg: Message, client: Client) => void | Promise<Message>
+    hidden: boolean /* hides the command from help */
 }
