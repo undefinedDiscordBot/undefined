@@ -1,6 +1,4 @@
-// Use this file for easy creation of a new command.
-
-import {Message} from "discord.js";
+import {Message, MessageEmbed} from "discord.js";
 
 // import modules
 import * as Util from "../modules/UtilFunctions";
@@ -22,7 +20,30 @@ function execute(message: Message, client: Client){
         };
     });
     let args = message.content.slice(client.config.prefix.length).split(" ").slice(1);
-    message.channel.send(JSON.stringify(categories))
+    let embed = new MessageEmbed();
+    embed.setColor("#0099ff");
+    if(args.length === 0){
+        embed.setTitle("Commands");
+        embed.setDescription(`Use ${client.config.prefix}help <category> to see the commands in a category.`);
+        
+        for(let i of categories){
+            let categoryCommands = showableCommands.filter( (c) => c.category === i);
+            let commandsString = categoryCommands.map( (c) => c.name).join(", ");
+            embed.addField(i, commandsString);
+        }
+    } else {
+        let category = args[0];
+        if(!categories.includes(category)){
+            return Util.quickError(message, `Category ${category} does not exist.`);
+        }
+        let categoryCommands = showableCommands.filter( (c) => c.category === category);
+        embed.setTitle(`Commands in ${category}`);
+        for(let i of categoryCommands){
+            i.description = i.description.replace(/\{prefix\}/g, client.config.prefix);
+            embed.addField(`\`${i.name}\``, i.description);
+        }
+    }
+    message.reply({embeds: [embed], allowedMentions: {repliedUser: false}});
 }
 
 const commandJson: Types.Command = {
