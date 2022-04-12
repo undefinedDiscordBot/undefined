@@ -1,4 +1,5 @@
-import {Message, Client} from "discord.js";
+import {Message} from "discord.js";
+import Client from "./Client";
 
 export type UserData = {
     id: string,

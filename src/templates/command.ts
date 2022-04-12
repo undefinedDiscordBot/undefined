@@ -1,22 +1,26 @@
 // Use this file for easy creation of a new command.
 
-const {Message, Client} = require("discord.js")
+import {Message} from "discord.js";
 
-// JSDoc for intellisense in VS Code and other IDEs
+// import modules
+import * as Util from "../modules/UtilFunctions";
+import * as Types from "../modules/Types";
+import Client from "../modules/Client";
+
 /**
  * Execute the command.
- * @param {Message} message 
- * @param {Client} client 
  */
-function execute(message, client){
+function execute(message: Message, client: Client){
     // Your code here.
     message.reply("This command is not yet implemented.");
 }
 
-module.exports = {
+const commandJson: Types.Command = {
     name: "command",
     aliases: ["cmd"],
     description: "This is the command template.",
     category: "example",
     execute: execute
 }
+
+export default commandJson;
