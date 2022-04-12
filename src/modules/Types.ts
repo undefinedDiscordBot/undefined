@@ -30,5 +30,5 @@ export type Command = {
     aliases: Array<string>,
     description: string,
     category: string,
-    execute: (msg: Message, client: Client) => void
+    execute: (msg: Message, client: Client) => void | Promise<Message>
 }
