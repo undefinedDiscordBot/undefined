@@ -2,7 +2,5 @@
   "prefix": "!!",
   "token": "",
   "ownerID": "",
-  "coOwnerID": "",
-  "debug": false,
-  "__notes about debug__": "Debug just logs a few extra things to help finding errors"
+  "coOwnerID": ""
 }

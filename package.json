@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "@types/node": "^17.0.23",
     "discord-buttons": "^3.2.1",
     "discord.js": "^13.0.0",
     "jsdom": "^16.6.0",

@@ -5,17 +5,11 @@
 These functions make some things less tedious and help with writing shorter and more readable code.
 
 */
-const {GuildMember, User, Guild, Message} = require("discord.js");
+const { GuildMember, User, Guild, Message } = require("discord.js");
 const discordJS = require("discord.js")
 
-const clientJS = require("../modules/Client.js")
-
-/** Add util functions
- * @constructor
- * @param {clientJS}  client  - 
- */
 function addUtil(client){
-    
+
     User.prototype.getUserData = 
     /**
      * 
@@ -64,12 +58,6 @@ function addUtil(client){
             client.DiscUsers.push(newData);
             return client.DiscUsers.filter( userObject => userObject.id == this.id )[0];
         }
-        /**
-         * 
-         * @param {String} message 
-         * @returns {Message} The error message sent to the user.
-         * @throws {Error} If the message is not a string.
-         */
     Message.prototype.error = function(message){
         // Send an error message to the user.
         if(typeof message != "string") throw new Error("Message must be a string.");
@@ -81,4 +69,4 @@ function addUtil(client){
     }
 }
 
-module.exports = addUtil;
+export { addUtil }
