@@ -32,8 +32,8 @@ client.on("messageCreate", (msg) => {
     var command = msg.content.slice(prefixToUse.length).split(/ +/)[0]; // get the command
     var filter = (c: Types.Command) => c.name === command || c.aliases.includes(command); // filter for command to execute
     var toExec = client.commands.filter(filter);
-    if(toExec.length <= 0) {utils.quickError(msg, `I couldnt find the command you were looking for, ${msg.author.username}`); return;;};
     // if cant find command, tell user
+    if(toExec.length <= 0) {utils.quickError(msg, `I couldnt find the command you were looking for, ${msg.author.username}`); return;};
     try{
         toExec[0].execute(msg, client);
     }catch(err){
