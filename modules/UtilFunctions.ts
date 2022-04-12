@@ -2,8 +2,6 @@ import {Guild, User, GuildMember, Message, MessageEmbed} from "discord.js";
 import Client from "./Client";
 import * as Types from "./Types";
 
-
-
 export function getUserData(user: User | GuildMember, client: Client): Types.UserData {
     var possibleData = client.Users.filter(data => data.id == user.id)[0];
     // If user data exists, then just return that
