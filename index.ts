@@ -1,10 +1,7 @@
 // es6 imports
 import * as fs from "fs";
-import * as utilFunctions from "./modules/UtilFunctions.old.js";
 const extendedClient = require("./modules/Client.js");
 const client = new extendedClient();
-
-utilFunctions.addUtil(client);
 
 var commandsDir = fs.readdirSync("./commands");
 var commandsFilter = (c:string) => c.endsWith(".js");
