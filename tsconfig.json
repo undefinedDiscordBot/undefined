@@ -1,7 +1,9 @@
 {
     "compilerOptions": {
-        "outDir": "./build"
+        "outDir": "./build",
+        "rootDir": "src"
     },
     "exclude": ["node_modules", "build"],
-    "include": ["index.ts", "modules/*.ts", "commands/*.ts"]
+    "include": ["src/**/*.ts"],
+    "extends": "@tsconfig/node16/tsconfig.json"
 }
