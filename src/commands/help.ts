@@ -13,7 +13,7 @@ import commands from "./index";
  */
 function execute(message: Message, client: Client){
     const showableCommands = commands.filter( (c) => c.hidden === false);
-    let categories = [];
+    let categories : Array<string> = [];
     showableCommands.forEach( (c) => {
         if(!categories.includes(c.category)){
             categories.push(c.category);
@@ -21,10 +21,11 @@ function execute(message: Message, client: Client){
     });
     let args = message.content.slice(client.config.prefix.length).split(" ").slice(1);
     let embed = new MessageEmbed();
+    let prefix = Util.getContextualPrefix(message, client);
     embed.setColor("#0099ff");
     if(args.length === 0){
         embed.setTitle("Commands");
-        embed.setDescription(`Use ${client.config.prefix}help <category> to see the commands in a category.`);
+        embed.setDescription(`Use ${prefix}help <category> to see the commands in a category.`);
         
         for(let i of categories){
             let categoryCommands = showableCommands.filter( (c) => c.category === i);
@@ -39,7 +40,7 @@ function execute(message: Message, client: Client){
         let categoryCommands = showableCommands.filter( (c) => c.category === category);
         embed.setTitle(`Commands in ${category}`);
         for(let i of categoryCommands){
-            i.description = i.description.replace(/\{prefix\}/g, client.config.prefix);
+            i.description = i.description.replace(/\{prefix\}/g, prefix);
             embed.addField(`\`${i.name}\``, i.description);
         }
     }

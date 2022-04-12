@@ -15,14 +15,13 @@ if (client.config.token) client.login(client.config.token);
 else console.log("No token provided. Please put a bot token in config.json and restart the bot.")
 
 client.on("ready", () => {
-    if (client.user === null) return;
-    client.user.setPresence({
+    client.user!.setPresence({
         activities: [{
             name: 'for ' + client.config.prefix + 'help',
             type: 'WATCHING'
         }]
     })
-    console.log(`Logged in as ${client.user.tag}!`);
+    console.log(`Logged in as ${client.user!.tag}!`);
 })
 client.on("messageCreate", (msg) => {
     var thisServer = client.Servers.filter(s => msg.guild !== null && msg.guild.id === s.id);

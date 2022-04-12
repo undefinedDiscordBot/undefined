@@ -17,7 +17,7 @@ function execute(message: Message, client: Client){
     var clicks = userData.games.clicker.clicks
     var embed = new MessageEmbed()
     .setTitle("Click")
-    .setFooter(message.member.displayName,message.author.avatarURL())
+    .setFooter(message.member!.displayName,message.author.avatarURL()!)
     .setDescription(`Your clicks are now at ${clicks}!`)
     .setColor("RANDOM")
     message.reply({allowedMentions: {repliedUser: false}, embeds: [embed]})

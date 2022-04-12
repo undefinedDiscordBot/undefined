@@ -41,3 +41,12 @@ export function quickError(msg: Message, error: string): Promise<Message> {
             }
         });
 }
+
+export function getContextualPrefix(msg: Message, client: Client): string {
+    let serverData = getServerData(msg.guild!, client);
+    if (serverData.prefix != null) {
+        return serverData.prefix;
+    } else {
+        return client.config.prefix;
+    }
+}

@@ -2,7 +2,7 @@
     "compilerOptions": {
         "outDir": "./build",
         "rootDir": "src",
-        "strict": false
+        "strict": true
     },
     "exclude": ["node_modules", "build", "src/templates"],
     "include": ["src/**/*.ts"],
