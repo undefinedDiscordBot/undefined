@@ -1,6 +1,6 @@
 import {Client, Intents} from "discord.js";
 import * as Types from "./Types";
-import fs from "fs";
+import * as fs from "fs";
 class Bot extends Client {
     config: Types.Config;
     commands: Array<Types.Command>;

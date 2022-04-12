@@ -1,6 +1,7 @@
 // es6 imports
 import * as fs from "fs";
-const extendedClient = require("./modules/Client.js");
+import extendedClient from "./modules/Client";
+import * as utils from "./modules/UtilFunctions";
 const client = new extendedClient();
 
 var commandsDir = fs.readdirSync("./commands");
@@ -21,16 +22,15 @@ client.on("ready", () => {
 })
 client.on("messageCreate", (msg) => {
     if(!msg.guild || msg.author.bot) return;
-    var thisServer = client.DiscServers.filter(s => msg.guild.id == s.id);
+    var thisServer = client.Servers.filter(s => msg.guild.id == s.id);
     var prefixToUse;
     if(thisServer.length > 0 && thisServer[0].prefix && thisServer[0].prefix !== client.config.prefix) prefixToUse=thisServer[0].prefix; else prefixToUse=client.config.prefix;
     // if the server has a custom prefix, use it
     if(msg.content.startsWith(prefixToUse)){ // check if command starts with prefix
     var command = msg.content.slice(prefixToUse.length).split(/ +/)[0]; // get the command
-    msg.prefix = prefixToUse;
     var filter = c => c.name === command || c.aliases.includes(command); // filter for command to execute
     var toExec = client.commands.filter(filter);
-    if(toExec.length <= 0) return msg.error(`I couldnt find the command you were looking for, ${msg.author.username}`);
+    if(toExec.length <= 0) {utils.quickError(msg, `I couldnt find the command you were looking for, ${msg.author.username}`); return;;};
     // if cant find command, tell user
     try{
         toExec[0].execute(msg, client);
@@ -39,9 +39,9 @@ client.on("messageCreate", (msg) => {
         msg.channel.send("I encountered an error while trying to execute your command. Please contact the developer of this bot for help.");
     }
     }       else if(msg.content == `<@!${client.user.id}>`){
-        var thisServer = client.DiscServers.filter(s => msg.guild.id == s.id);
+        var thisServer = client.Servers.filter(s => msg.guild.id == s.id);
         var serverPrefix;
-        if(thisServer.length !== 0 && thisServer[0].prefix && thisServer[0] !== client.config.prefix) serverPrefix=thisServer[0].prefix;
+        if(thisServer.length !== 0 && thisServer[0].prefix && thisServer[0].prefix !== client.config.prefix) serverPrefix=thisServer[0].prefix;
         
         serverPrefix ? msg.channel.send(`My prefix in this server is ${serverPrefix}`) : msg.channel.send(`My prefix is ${client.config.prefix}`);
     }
