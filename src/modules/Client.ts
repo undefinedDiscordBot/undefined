@@ -13,8 +13,8 @@ class Bot extends Client {
         this.Users = new Array();
         this.Servers = new Array();
 
-        if(!fs.existsSync("../data/")) fs.mkdirSync("../data");
-        var datafolder = fs.readdirSync("../data");
+        if(!fs.existsSync("../../data/")) fs.mkdirSync("../../data");
+        var datafolder = fs.readdirSync("../../data");
         for(var i in datafolder){
             var file = datafolder[i];
             if(!file.endsWith(".json")) continue;
