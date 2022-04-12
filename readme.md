@@ -1,3 +1,3 @@
 ## Undefined
 
-A discord bot with tons of general use features.
+A work in progress discord bot.
