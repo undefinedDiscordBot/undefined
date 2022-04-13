@@ -2,7 +2,7 @@ import {Client, Intents} from "discord.js";
 import * as Types from "./Types";
 import * as fs from "fs";
 import commands from "../commands/index"
-
+import chalk from "chalk";
 class Bot extends Client {
     config: Types.Config;
     commands: Array<Types.Command>;
@@ -12,14 +12,14 @@ class Bot extends Client {
         super({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES] });
         if(!fs.existsSync("../config.json")){
             // first run, probably didnt copy template
-            console.log("Config file missing, attempting to copy template to config.json");
+            console.log(chalk.red("Config file missing, attempting to copy template to config.json"));
             try {
                 fs.copyFileSync("../config.template.json", "../config.json");
-                console.log("Successfully copied config template to proper location!\nPlease fill out the config file with the correct information.");
-                console.log("Exiting...");
+                console.log(chalk.green("Successfully copied config template to proper location!\nPlease fill out the config file with the correct information."));
+                console.log(chalk.green("Exiting..."));
                 process.exit(0);
             } catch(err){
-                console.log("Couldn't copy template. Did you delete it?");
+                console.log(chalk.red("Couldn't copy template. Did you delete it?"));
                 console.log(err)
                 console.log(fs.readdirSync("../"))
                 process.exit(0)
@@ -40,7 +40,7 @@ class Bot extends Client {
             this[whereToPush].push(require("../../data/" + datafolder[i]));
         }
         var filter = (d: string) => d.endsWith(".json")
-        console.log(`Loaded ${datafolder.filter(filter).length} data files.`)
+        console.log(chalk.blue(`Loaded ${chalk.green(datafolder.filter(filter).length)} data files.`));
         // Auto-save data
 
         var that = this
@@ -55,7 +55,7 @@ class Bot extends Client {
                 var server = that.Servers[i];
                 fs.writeFileSync(`../data/server_${server.id}.json`, JSON.stringify(server, null, 2))
             }
-            console.debug("Autosaved!");
+            console.debug(chalk.green("Autosaved!"));
         }, autoSaveInterval*1000)
     }
 }

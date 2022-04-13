@@ -3,13 +3,14 @@ import * as fs from "fs";
 import * as Types from "./modules/Types"
 import extendedClient from "./modules/Client";
 import * as utils from "./modules/UtilFunctions";
+import chalk from "chalk";
 const client = new extendedClient();
 
 var commandsDir = fs.readdirSync("./commands");
 var commandsFilter = (c: string) => c.endsWith(".js");
 var validCommands = commandsDir.filter(commandsFilter);
 
-console.log(`Found ${client.commands.length} commands!`);
+console.log(chalk.blue(`Found ${chalk.green(client.commands.length)} commands!`));
 
 if (client.config.token) client.login(client.config.token);
 else console.log("No token provided. Please put a bot token in config.json and restart the bot.")
@@ -21,7 +22,7 @@ client.on("ready", () => {
             type: 'WATCHING'
         }]
     })
-    console.log(`Logged in as ${client.user!.tag}!`);
+    console.log(chalk.blue(`Logged in as ${chalk.green(client.user!.tag)}!`));
 })
 client.on("messageCreate", (msg) => {
     var thisServer = client.Servers.filter(s => msg.guild !== null && msg.guild.id === s.id);
