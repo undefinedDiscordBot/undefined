@@ -1,9 +1,9 @@
 import {Message} from "discord.js";
 
 // import modules
-import * as Util from "../modules/UtilFunctions";
-import * as Types from "../modules/Types";
-import Client from "../modules/Client";
+import * as Util from "../../modules/UtilFunctions";
+import * as Types from "../../modules/Types";
+import Client from "../../modules/Client";
 
 /**
  * Execute the command.

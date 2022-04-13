@@ -1,12 +1,12 @@
 import {Message, MessageEmbed} from "discord.js";
 
 // import modules
-import * as Util from "../modules/UtilFunctions";
-import * as Types from "../modules/Types";
-import Client from "../modules/Client";
+import * as Util from "../../modules/UtilFunctions";
+import * as Types from "../../modules/Types";
+import Client from "../../modules/Client";
 
 // import command index
-import commands from "./index";
+import commands from "../index";
 
 /**
  * Execute the command.

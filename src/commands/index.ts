@@ -1,5 +1,11 @@
-import click from "./click";
-import help from "./help"
-import ping from "./ping";
+import click from "./fun/click";
+import help from "./info/help";
+import ping from "./fun/ping";
+import eval from "./owner/eval";
 
-export default [help, click, ping]
+export default [
+    help,
+    click,
+    ping,
+    eval
+];

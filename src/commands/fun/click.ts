@@ -1,8 +1,8 @@
 // First command properly using the getUserData function I created.
-import * as util from "../modules/UtilFunctions"
+import * as util from "../../modules/UtilFunctions"
 import {Message, MessageEmbed} from "discord.js"
-import Client from "../modules/Client"
-import {Command} from "../modules/Types"
+import Client from "../../modules/Client"
+import {Command} from "../../modules/Types"
 
 
 /**
