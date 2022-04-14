@@ -1,3 +1,5 @@
+// probably need to rewrite this, typescript doesnt like the way i did things here
+
 const sharp = require("sharp");
 const discord = require("discord.js");
 const Snekfetch = require("snekfetch");
