@@ -29,7 +29,7 @@ function execute(message: Message, client: Client){
 
 const commandJson: Types.Command = {
     name: "acronym",
-    aliases: ["abbr", "abbriviate"],
+    aliases: ["abbr", "abbreviate"],
     description: "Turn any phrase into an acronym! istgiwctyhabtlsooyiydstfu!",
     category: "fun",
     hidden: false,
