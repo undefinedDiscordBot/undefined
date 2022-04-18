@@ -4,7 +4,9 @@ import * as Types from "./modules/Types"
 import extendedClient from "./modules/Client";
 import * as utils from "./modules/UtilFunctions";
 import chalk from "chalk";
+import { performance } from "perf_hooks";
 const client = new extendedClient();
+
 
 var commandsDir = fs.readdirSync("./commands");
 var commandsFilter = (c: string) => c.endsWith(".js");
@@ -25,9 +27,10 @@ client.on("ready", () => {
     console.log(chalk.blue(`Logged in as ${chalk.green(client.user!.tag)}!`));
 })
 client.on("messageCreate", (msg) => {
-    var thisServer = client.Servers.filter(s => msg.guild !== null && msg.guild.id === s.id);
+    if(msg.author.bot || !msg.guild) return;
+    var thisServer = utils.getServerData(msg.guild!, client);
     var prefixToUse;
-    if (thisServer.length > 0 && thisServer[0].prefix && thisServer[0].prefix !== client.config.prefix) prefixToUse = thisServer[0].prefix;
+    if (typeof thisServer.prefix == "string") prefixToUse = thisServer.prefix;
     else prefixToUse = client.config.prefix;
     // if the server has a custom prefix, use it
     if (msg.content.startsWith(prefixToUse)) { // check if command starts with prefix
@@ -36,7 +39,8 @@ client.on("messageCreate", (msg) => {
         var toExec = client.commands.filter(filter);
         // if cant find command, tell user
         if (toExec.length <= 0) {
-            utils.quickError(msg, `I couldnt find the command you were looking for, ${msg.author.username}`);
+            var name = msg.member!.displayName
+            utils.quickError(msg, `I couldnt find the command you were looking for, ${name}!`);
             return;
         };
         try {
@@ -45,11 +49,9 @@ client.on("messageCreate", (msg) => {
             console.log("Error: " + err);
             msg.channel.send("I encountered an error while trying to execute your command. Please contact the developer of this bot for help.");
         }
-    } else if (client.user !== null && msg.content == `<@!${client.user.id}>`) {
-        var thisServer = client.Servers.filter(s => msg.guild !== null && msg.guild.id === s.id);
+    } else if (client.user !== null && msg.content == `<@${client.user.id}>`) {
         var serverPrefix;
-        if (thisServer.length !== 0 && thisServer[0].prefix && thisServer[0].prefix !== client.config.prefix) serverPrefix = thisServer[0].prefix;
-
+        if (typeof thisServer.prefix  == "string") serverPrefix = thisServer.prefix;
         serverPrefix ? msg.channel.send(`My prefix in this server is ${serverPrefix}`) : msg.channel.send(`My prefix is ${client.config.prefix}`);
     }
 })

@@ -1,3 +1,7 @@
+/*
+A bunch of functions to make code shorter, and easier to read.
+*/
+
 import {Guild, User, GuildMember, Message, MessageEmbed} from "discord.js";
 import Client from "./Client";
 import * as Types from "./Types";
@@ -49,4 +53,10 @@ export function getContextualPrefix(msg: Message, client: Client): string {
     } else {
         return client.config.prefix;
     }
+}
+
+export function quickArgs(msg: Message, client : Client): Array<string>{
+    let args = msg.content.replace(getContextualPrefix(msg, client), "").split(" ");
+    args.shift();
+    return args;
 }
