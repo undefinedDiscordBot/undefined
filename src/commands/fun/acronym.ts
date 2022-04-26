@@ -16,7 +16,7 @@ function execute(message: Message, client: Client){
     let acro = args.map( (val) => {return val.charAt(0).toLocaleLowerCase()});
     let acrostring = acro.join("");
     let embed = new MessageEmbed();
-    embed.setTitle("Acronym");
+    embed.setTitle("Here is your acronym:");
     embed.setDescription(acrostring);
     embed.setColor("#0099ff");
     message.channel.send({
